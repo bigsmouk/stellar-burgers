@@ -1,9 +1,6 @@
 import { FC, memo, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-<<<<<<< HEAD
 import { useSelector } from '../../services/store';
-=======
->>>>>>> main
 
 import { OrderCardProps } from './type';
 import { TIngredient } from '@utils-types';
@@ -13,7 +10,6 @@ const maxIngredients = 6;
 
 export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
   const location = useLocation();
-<<<<<<< HEAD
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
   const orderInfo = useMemo(() => {
@@ -29,19 +25,6 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
           return [...acc, ingredient];
         }
 
-=======
-
-  /** TODO: взять переменную из стора */
-  const ingredients: TIngredient[] = [];
-
-  const orderInfo = useMemo(() => {
-    if (!ingredients.length) return null;
-
-    const ingredientsInfo = order.ingredients.reduce(
-      (acc: TIngredient[], item: string) => {
-        const ingredient = ingredients.find((ing) => ing._id === item);
-        if (ingredient) return [...acc, ingredient];
->>>>>>> main
         return acc;
       },
       []
@@ -57,10 +40,7 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
         : 0;
 
     const date = new Date(order.createdAt);
-<<<<<<< HEAD
 
-=======
->>>>>>> main
     return {
       ...order,
       ingredientsInfo,
@@ -71,13 +51,9 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
     };
   }, [order, ingredients]);
 
-<<<<<<< HEAD
   if (!orderInfo) {
     return null;
   }
-=======
-  if (!orderInfo) return null;
->>>>>>> main
 
   return (
     <OrderCardUI
@@ -86,8 +62,4 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
       locationState={{ background: location }}
     />
   );
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> main
