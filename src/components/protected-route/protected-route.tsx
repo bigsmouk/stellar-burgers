@@ -1,11 +1,17 @@
 import { FC, ReactElement } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector } from '../../services/store';
 import { Preloader } from '@ui';
+import { useSelector } from '../../services/store';
 
 type ProtectedRouteProps = {
   element: ReactElement;
   onlyUnAuth?: boolean;
+};
+
+type TLocationState = {
+  from?: {
+    pathname: string;
+  };
 };
 
 export const ProtectedRoute: FC<ProtectedRouteProps> = ({
@@ -24,7 +30,9 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   }
 
   if (onlyUnAuth && user) {
-    const from = location.state?.from?.pathname || '/';
+    const from =
+      (location.state as TLocationState | null)?.from?.pathname || '/';
+
     return <Navigate to={from} replace />;
   }
 

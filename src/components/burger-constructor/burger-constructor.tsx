@@ -2,10 +2,7 @@ import { FC, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
 import { BurgerConstructorUI } from '@ui';
-import {
-  clearOrder,
-  createOrder
-} from '../../services/slices/orderSlice';
+import { clearOrder, createOrder } from '../../services/slices/orderSlice';
 import { removeIngredient } from '../../services/slices/constructorSlice';
 
 export const BurgerConstructor: FC = () => {
@@ -13,9 +10,7 @@ export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { bun, ingredients } = useSelector(
-    (state) => state.burgerConstructor
-  );
+  const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
   const { user } = useSelector((state) => state.user);
   const { orderRequest, orderData } = useSelector((state) => state.order);
 

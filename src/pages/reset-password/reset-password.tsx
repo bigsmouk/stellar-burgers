@@ -19,11 +19,12 @@ export const ResetPassword: FC = () => {
     }
   }, [navigate]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(clearUserError());
-    };
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();

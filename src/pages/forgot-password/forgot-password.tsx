@@ -24,11 +24,12 @@ export const ForgotPassword: FC = () => {
     }
   }, [isResetPasswordRequested, navigate]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(clearUserError());
-    };
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();

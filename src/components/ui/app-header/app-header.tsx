@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { NavLink } from 'react-router-dom';
+import { FC } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './app-header.module.css';
 import { TAppHeaderUIProps } from './type';
@@ -60,9 +60,9 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         </NavLink>
       </div>
 
-      <NavLink to='/' className={styles.logo}>
+      <Link to='/' className={styles.logo}>
         <Logo className='' />
-      </NavLink>
+      </Link>
 
       <NavLink
         to='/profile'

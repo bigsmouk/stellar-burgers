@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import {
   Input,
   Button,
   PasswordInput
 } from '@zlden/react-developer-burger-ui-components';
+import { Link, useLocation } from 'react-router-dom';
 import styles from '../common.module.css';
-import { Link } from 'react-router-dom';
 import { RegisterUIProps } from './type';
 
 export const RegisterUI: FC<RegisterUIProps> = ({
@@ -17,16 +17,18 @@ export const RegisterUI: FC<RegisterUIProps> = ({
   setPassword,
   userName,
   setUserName
-}) => (
-  <main className={styles.container}>
-    <div className={`pt-6 ${styles.wrapCenter}`}>
-      <h3 className='pb-6 text text_type_main-medium'>Регистрация</h3>
-      <form
-        className={`pb-15 ${styles.form}`}
-        name='register'
-        onSubmit={handleSubmit}
-      >
-        <>
+}) => {
+  const location = useLocation();
+
+  return (
+    <main className={styles.container}>
+      <div className={`pt-6 ${styles.wrapCenter}`}>
+        <h3 className='pb-6 text text_type_main-medium'>Регистрация</h3>
+        <form
+          className={`pb-15 ${styles.form}`}
+          name='register'
+          onSubmit={handleSubmit}
+        >
           <div className='pb-6'>
             <Input
               type='text'
@@ -45,10 +47,10 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               placeholder='E-mail'
               onChange={(e) => setEmail(e.target.value)}
               value={email}
-              name={'email'}
+              name='email'
               error={false}
               errorText=''
-              size={'default'}
+              size='default'
             />
           </div>
           <div className='pb-6'>
@@ -68,14 +70,18 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               {errorText}
             </p>
           )}
-        </>
-      </form>
-      <div className={`${styles.question} text text_type_main-default pb-6`}>
-        Уже зарегистрированы?
-        <Link to='/login' className={`pl-2 ${styles.link}`}>
-          Войти
-        </Link>
+        </form>
+        <div className={`${styles.question} text text_type_main-default pb-6`}>
+          Уже зарегистрированы?
+          <Link
+            to='/login'
+            state={location.state}
+            className={`pl-2 ${styles.link}`}
+          >
+            Войти
+          </Link>
+        </div>
       </div>
-    </div>
-  </main>
-);
+    </main>
+  );
+};

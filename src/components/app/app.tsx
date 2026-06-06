@@ -1,5 +1,11 @@
 import { useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Location,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate
+} from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 import { checkUserAuth } from '../../services/slices/userSlice';
@@ -25,13 +31,16 @@ import { Preloader } from '@ui';
 import '../../index.css';
 import styles from './app.module.css';
 
+type TLocationState = {
+  background?: Location;
+};
+
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const background = (location.state as { background?: typeof location } | null)
-    ?.background;
+  const background = (location.state as TLocationState | null)?.background;
 
   const { loading, error } = useSelector((state) => state.ingredients);
   const { isAuthChecked } = useSelector((state) => state.user);
@@ -100,9 +109,9 @@ const App = () => {
         />
 
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
-        <Route path='/feed/:id' element={<OrderInfo />} />
+        <Route path='/feed/:number' element={<OrderInfo />} />
         <Route
-          path='/profile/orders/:id'
+          path='/profile/orders/:number'
           element={<ProtectedRoute element={<OrderInfo />} />}
         />
 
@@ -120,7 +129,7 @@ const App = () => {
             }
           />
           <Route
-            path='/feed/:id'
+            path='/feed/:number'
             element={
               <Modal title='Информация о заказе' onClose={closeModal}>
                 <OrderInfo />
@@ -128,7 +137,7 @@ const App = () => {
             }
           />
           <Route
-            path='/profile/orders/:id'
+            path='/profile/orders/:number'
             element={
               <ProtectedRoute
                 element={
