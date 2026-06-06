@@ -1,7 +1,13 @@
-import { TConstructorIngredient } from '@utils-types';
+import { TConstructorIngredient } from '../../services/slices/constructorSlice';
+
+export type TBurgerConstructorIngredientWithHandleClose =
+  TConstructorIngredient & {
+    handleClose: () => void;
+  };
 
 export type BurgerConstructorElementProps = {
-  ingredient: TConstructorIngredient;
+  ingredient: TBurgerConstructorIngredientWithHandleClose;
   index: number;
   totalItems: number;
+  handleClose: () => void;
 };
