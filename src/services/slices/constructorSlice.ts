@@ -6,11 +6,11 @@ export type TConstructorIngredient = TIngredient & {
 };
 
 interface ConstructorState {
-  bun: TIngredient | null;
+  bun: TConstructorIngredient | null;
   ingredients: TConstructorIngredient[];
 }
 
-const initialState: ConstructorState = {
+export const initialState: ConstructorState = {
   bun: null,
   ingredients: []
 };
