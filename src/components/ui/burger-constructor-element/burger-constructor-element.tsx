@@ -16,8 +16,8 @@ export const BurgerConstructorElementUI: FC<BurgerConstructorElementUIProps> =
     }) => (
       <li className={`${styles.element} mb-4 mr-2`}>
         <MoveButton
-          handleMoveDown={handleMoveDown}
-          handleMoveUp={handleMoveUp}
+          handleMoveDown={handleMoveDown || (() => {})}
+          handleMoveUp={handleMoveUp || (() => {})}
           isUpDisabled={index === 0}
           isDownDisabled={index === totalItems - 1}
         />
