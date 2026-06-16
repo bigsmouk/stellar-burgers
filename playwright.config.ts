@@ -4,11 +4,11 @@ export default defineConfig({
   testDir: './tests',
   testMatch: '**/*.pl.tsx',
   use: {
-    baseURL: 'http://localhost:3000'
+    baseURL: 'http://localhost:4000'
   },
   webServer: {
     command: 'npm run start',
-    url: 'http://localhost:3000',
+    url: 'http://localhost:4000',
     reuseExistingServer: true
   }
 });
