@@ -11,6 +11,10 @@ test.describe('Страница конструктора бургера', () => 
   test('добавляет ингредиенты в конструктор', async ({ page }) => {
     await page.goto('/');
 
+    await expect(page.getByTestId('constructor-bun-top')).toHaveCount(0);
+    await expect(page.getByTestId('constructor-bun-bottom')).toHaveCount(0);
+    await expect(page.getByTestId('constructor-ingredient-item')).toHaveCount(0);
+
     const bunCard = page
       .getByTestId('ingredient-card')
       .filter({ hasText: 'Краторная булка N-200i' });
@@ -39,15 +43,19 @@ test.describe('Страница конструктора бургера', () => 
   }) => {
     await page.goto('/');
 
+    await expect(page.getByTestId('modal')).toHaveCount(0);
+
     const ingredientCard = page
       .getByTestId('ingredient-card')
       .filter({ hasText: 'Краторная булка N-200i' });
 
     await ingredientCard.getByTestId('ingredient-link').click();
 
-    await expect(page.getByTestId('modal')).toBeVisible();
-    await expect(page.getByTestId('ingredient-details')).toBeVisible();
-    await expect(page.getByTestId('ingredient-details-name')).toHaveText(
+    const modal = page.getByTestId('modal');
+
+    await expect(modal).toBeVisible();
+    await expect(modal.getByTestId('ingredient-details')).toBeVisible();
+    await expect(modal.getByTestId('ingredient-details-name')).toHaveText(
       'Краторная булка N-200i'
     );
   });
@@ -119,10 +127,23 @@ test.describe('Страница конструктора бургера', () => 
     await bunCard.getByRole('button', { name: 'Добавить' }).click();
     await mainCard.getByRole('button', { name: 'Добавить' }).click();
 
+    await expect(page.getByTestId('constructor-bun-top')).toContainText(
+      'Краторная булка N-200i'
+    );
+    await expect(page.getByTestId('constructor-bun-bottom')).toContainText(
+      'Краторная булка N-200i'
+    );
+    await expect(page.getByTestId('constructor-ingredient-item')).toHaveCount(1);
+
+    await expect(page.getByTestId('modal')).toHaveCount(0);
+    await expect(page.getByTestId('order-number')).toHaveCount(0);
+
     await page.getByRole('button', { name: 'Оформить заказ' }).click();
 
-    await expect(page.getByTestId('order-number')).toHaveText('12345');
-    await expect(page.getByTestId('modal')).toBeVisible();
+    const modal = page.getByTestId('modal');
+
+    await expect(modal).toBeVisible();
+    await expect(modal.getByTestId('order-number')).toHaveText('12345');
 
     await expect(page.getByTestId('constructor-bun-top')).toHaveCount(0);
     await expect(page.getByTestId('constructor-bun-bottom')).toHaveCount(0);
